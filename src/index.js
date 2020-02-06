@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const routes = require('./routes');
 
 const { PORT = '3000' } = process.env
 const HOST = '0.0.0.0';
@@ -12,10 +13,6 @@ mongoose.connect('mongodb+srv://usu_omnistack:pwd_omnistack@fish-xxoc1.mongodb.n
 })
 
 app.use(express.json());
-
-
-app.get('/', (req, res) => {
-    return res.send('Hello World');
-});
+app.use(routes);
 
 app.listen(PORT, HOST);
