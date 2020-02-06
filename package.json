@@ -2,11 +2,11 @@
     "name": "backend",
     "version": "1.0.0",
     "description": "Projeto de backend da semana omnistack 10 da rocketseat.",
-    "main": "index.js",
+    "main": "./code/src/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "npm start",
-        "start.dev": "nodemon ./code/index.js"
+        "start.dev": "nodemon"
     },
     "repository": {
         "url": "https://github.com/yarnpkg/example-yarn-package",
