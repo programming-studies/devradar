@@ -15,6 +15,7 @@
     "author": "Mikhail Cavalcanti <mikhailcavalcanti@gmail.com",
     "license": "MIT",
     "dependencies": {
+        "axios": "^0.19.2",
         "express": "^4.16.3",
         "mongoose": "^5.8.11"
     },
