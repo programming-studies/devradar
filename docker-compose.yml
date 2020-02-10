@@ -1,20 +1,14 @@
 version: "3.7"
 services:
-  omnistack-10-backend:
-    build: ./
-    #command: npm run start
-    container_name: "omnistack-10-backend"
+  devradar-backend:
+    build: ./backend
+    container_name: "devradar-backend"
     volumes:
-      - .:/usr/backend/code
-      #- omnistack_10_data:/usr/backend/node_modules
-      #- .:/usr/backend
-      #  - /usr/backend/node_modules/* # Remove this if you have pure JS dependencies
+      - ./backend:/usr/backend/code
     ports:
-      - 3000:3000
-#     networks:
-#       - omnistack_10_network
-#volumes:
-#   omnistack_10_data: {}
-# networks:
-#   omnistack_10_network:
-#     driver: bridge
+      - 3333:3000
+    networks:
+      - devradar_network
+networks:
+  devradar_network:
+    driver: bridge
