@@ -1,14 +1,29 @@
 version: "3.7"
 services:
-  devradar-backend:
-    build: ./backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile-backend
+    image: fish/devradar-backend:latest
     container_name: "devradar-backend"
+    network_mode: default
     volumes:
       - ./backend:/usr/backend/code
     ports:
-      - 3333:3000
-    networks:
-      - devradar_network
-networks:
-  devradar_network:
-    driver: bridge
+      - 3333:3333
+    environment:
+      - PORT=3333
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+    image: fish/devradar-frontend:latest
+    container_name: "devradar-frontend"
+    command: [sh, -c, "ln -sf $$(pwd)/node_modules ./code && npm start --prefix ./code"]
+    network_mode: default
+    volumes:
+      - ./web:/usr/frontend/code
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=development

@@ -1,0 +1,11 @@
+# Docker build para o frontend react app
+FROM node:alpine
+
+WORKDIR /usr/frontend
+# add `/usr/frontend/node_modules/.bin` to $PATH
+ENV PATH /usr/frontend/node_modules/.bin:$PATH
+COPY ./web/package*.json ./
+RUN npm install --silent
+RUN npm install react-scripts@3.0.1 -g
+RUN ln -sf ./code/package.json ./ && ln -sf ./code/package-lock.json ./
+CMD ["npm", "start"]
