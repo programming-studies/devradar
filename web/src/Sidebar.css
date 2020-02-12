@@ -1,0 +1,74 @@
+aside {
+  width: 320px;
+  background: #fff;
+  box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.02);
+  padding: 30px 20px;
+}
+
+aside strong {
+  font-size: 20px;
+  text-align: center;
+  display: block;
+  color: #333;
+}
+
+aside form {
+  margin-top: 30px;
+}
+
+/*
+ Como por margin top em todos os input-block exeto o primeiro
+ O + faz com que pegue todos os .input-block que possuam um
+ .input-block antes dele, como o primeiro não tem, não aplica
+ */
+aside form .input-block + .input-block {
+  margin-top: 20px;
+}
+
+/* 
+Quando estiver dentro de um input group, todos os .input-block
+não precisam de margin-top
+*/
+aside form .input-group .input-block {
+  margin-top: 0;
+}
+
+aside form .input-group {
+  margin-top: 20px;
+  display: grid; /* um fica do lado do outro */
+  gap: 20px; /* espaço entre eles seja de 20px */
+  grid-template-columns: 1fr 1fr; /* faz com que cada input ocupe 50% (ocupa uma área flexível cada um) */
+}
+
+aside form .input-block label {
+  color: #acacac;
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+}
+
+aside form .input-block input {
+  width: 100%;
+  height: 32px;
+  font-size: 14px;
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
+
+aside form button[type="submit"] {
+  width: 100%;
+  border: 0;
+  margin-top: 30px;
+  background: #7d40e7;
+  border-radius: 2px;
+  padding: 15px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.5s;
+}
+
+aside form button[type="submit"]:hover {
+  background-color: #6931ca;
+}
