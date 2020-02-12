@@ -7,6 +7,8 @@ import "./Sidebar.css";
 import "./Main.css";
 
 function App() {
+  const [developers, setDevelopers] = useState([]);
+
   const [github_username, setGithubUsername] = useState("");
   const [techs, setTechs] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -26,9 +28,17 @@ function App() {
     );
   }, []);
 
-  async function handleAddDev(event) {
+  useEffect(() => {
+    async function loadDevelopers() {
+      const response = await api.get("/developers");
+      setDevelopers(response.data);
+    }
+    loadDevelopers();
+  }, []);
+
+  async function handleAddDeveloper(event) {
     event.preventDefault();
-    const response = await api.post("/developers", {
+    await api.post("/developers", {
       github_username,
       techs,
       latitude,
@@ -42,7 +52,7 @@ function App() {
     <div id="app">
       <aside>
         <strong>Cadastrar</strong>
-        <form onSubmit={handleAddDev}>
+        <form onSubmit={handleAddDeveloper}>
           <div className="input-block">
             <label htmlFor="github_username">Usuário do github</label>
             <input
@@ -93,70 +103,21 @@ function App() {
       </aside>
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/5747855?s=460&v=4"
-                alt=""
-              />
-              <div className="user-info">
-                <strong>Mikhail Cavalcanti</strong>
-                <span>React Js, React Native, Node Js</span>
-              </div>
-            </header>
-            <p>Programador entusiasta</p>
-            <a href="https://github.com/mikhailcavalcanti">
-              Acessar perfil no Github
-            </a>
-          </li>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/5747855?s=460&v=4"
-                alt=""
-              />
-              <div className="user-info">
-                <strong>Mikhail Cavalcanti</strong>
-                <span>React Js, React Native, Node Js</span>
-              </div>
-            </header>
-            <p>Programador entusiasta</p>
-            <a href="https://github.com/mikhailcavalcanti">
-              Acessar perfil no Github
-            </a>
-          </li>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/5747855?s=460&v=4"
-                alt=""
-              />
-              <div className="user-info">
-                <strong>Mikhail Cavalcanti</strong>
-                <span>React Js, React Native, Node Js</span>
-              </div>
-            </header>
-            <p>Programador entusiasta</p>
-            <a href="https://github.com/mikhailcavalcanti">
-              Acessar perfil no Github
-            </a>
-          </li>
-          <li className="dev-item">
-            <header>
-              <img
-                src="https://avatars1.githubusercontent.com/u/5747855?s=460&v=4"
-                alt=""
-              />
-              <div className="user-info">
-                <strong>Mikhail Cavalcanti</strong>
-                <span>React Js, React Native, Node Js</span>
-              </div>
-            </header>
-            <p>Programador entusiasta</p>
-            <a href="https://github.com/mikhailcavalcanti">
-              Acessar perfil no Github
-            </a>
-          </li>
+          {developers.map(developer => (
+            <li className="dev-item" key={developer._id}>
+              <header>
+                <img src={developer.avatar_url} alt={developer.name} />
+                <div className="user-info">
+                  <strong>{developer.name}</strong>
+                  <span>{developer.techs.join(", ")}</span>
+                </div>
+              </header>
+              <p>{developer.bio}</p>
+              <a href={`https://github.com/${developer.github_username}`}>
+                Acessar perfil no Github
+              </a>
+            </li>
+          ))}
         </ul>
       </main>
     </div>
