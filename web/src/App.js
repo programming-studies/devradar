@@ -38,7 +38,7 @@ function App() {
 
   async function handleAddDeveloper(event) {
     event.preventDefault();
-    await api.post("/developers", {
+    const response = await api.post("/developers", {
       github_username,
       techs,
       latitude,
@@ -46,6 +46,7 @@ function App() {
     });
     setGithubUsername("");
     setTechs("");
+    setDevelopers([...developers, response.data]);
   }
 
   return (
