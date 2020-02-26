@@ -14,8 +14,12 @@ import {
 } from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons";
 
+import api from "../services/api";
+
 function Main({ navigation }) {
+  const [developers, setDevelopers] = useState([]);
   const [currentRegion, setCurrentRegion] = useState(null);
+  const [techs, setTechs] = useState("");
 
   useEffect(() => {
     async function loadInitialPosition() {
@@ -41,38 +45,63 @@ function Main({ navigation }) {
     loadInitialPosition();
   }, []);
 
+  async function loadDevelopers() {
+    const { latitude, longitude } = currentRegion;
+    const response = await api.get("search", {
+      params: {
+        latitude,
+        longitude,
+        techs
+      }
+    });
+    console.log(response.data);
+    setDevelopers(response.data);
+  }
+
+  function handleRegionChanged(region) {
+    setCurrentRegion(region);
+  }
+
   if (!currentRegion) {
     return null;
   }
 
   return (
     <>
-      <MapView style={styles.map} initialRegion={currentRegion}>
-        <Marker coordinate={{ latitude: -7.0996074, longitude: -34.8392131 }}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: "https://avatars0.githubusercontent.com/u/5747855?s=60&v=4"
-            }}
-          />
-          <Callout
-            onPress={() => {
-              navigation.navigate("Profile", {
-                github_username: "mikhailcavalcanti"
-              });
+      <MapView
+        style={styles.map}
+        initialRegion={currentRegion}
+        onRegionChangeComplete={handleRegionChanged}
+      >
+        {developers.map(developer => (
+          <Marker
+            key={developer._id}
+            coordinate={{
+              longitude: developer.location.coordinates[0],
+              latitude: developer.location.coordinates[1]
             }}
           >
-            <View style={styles.callout}>
-              <Text style={styles.devName}>Mikhail Cavalcanti</Text>
-              <Text style={styles.devBio}>
-                Programador entusiasta de novas tecnologias
-              </Text>
-              <Text style={styles.devTechs}>
-                Node Js, React Native, React, Php
-              </Text>
-            </View>
-          </Callout>
-        </Marker>
+            <Image
+              style={styles.avatar}
+              source={{ uri: developer.avatar_url }}
+            />
+            <Callout
+              onPress={() => {
+                navigation.navigate("Profile", {
+                  github_username: developer.github_username
+                });
+              }}
+            >
+              <View style={styles.callout}>
+                <Text style={styles.devName}>{developer.name}</Text>
+                <Text style={styles.devBio}>{developer.bio}</Text>
+                <Text style={styles.devTechs}>
+                  {developer.techs.join(", ")}
+                </Text>
+              </View>
+            </Callout>
+          </Marker>
+        ))}
       </MapView>
       <View style={styles.searchForm}>
         <TextInput
@@ -81,8 +110,10 @@ function Main({ navigation }) {
           placeholderTextColor="#999"
           autoCapitalize="words"
           autoCorrect={false}
+          value={techs}
+          onChangeText={setTechs}
         />
-        <TouchableOpacity onPress={() => {}} style={styles.loadButton}>
+        <TouchableOpacity onPress={loadDevelopers} style={styles.loadButton}>
           <MaterialIcons
             // style={{ justifyContent: "center", alignContent: "center" }}
             name="my-location"
