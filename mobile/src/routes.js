@@ -14,7 +14,9 @@ function Routes() {
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: "#7d40e7" },
-          headerTintColor: "#fff"
+          headerTintColor: "#fff",
+          // Retira o título da página anterior no botão de voltar
+          headerBackTitleVisible: false
         }}
       >
         <Stack.Screen
