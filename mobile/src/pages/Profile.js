@@ -1,21 +1,13 @@
 import React from "react";
-import { Button, View, Text } from "react-native";
+import { WebView } from "react-native-webview";
 
-function Profile({ navigation }) {
+function Profile({ route }) {
+  const { github_username } = route.params;
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Profile Screen</Text>
-      <Button
-        title="Go to Main... again"
-        onPress={() => navigation.push("Main")}
-      />
-      <Button title="Go to Main" onPress={() => navigation.navigate("Main")} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-      <Button
-        title="Go back to first screen in stack"
-        onPress={() => navigation.popToTop()}
-      />
-    </View>
+    <WebView
+      style={{ flex: 1 }}
+      source={{ uri: `https://github.com/${github_username}` }}
+    />
   );
 }
 
