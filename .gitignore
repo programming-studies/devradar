@@ -1,2 +1,4 @@
 .vscode
 mobile/yarn-error.log
+node_modules
+debug.log

@@ -1,26 +1,27 @@
 {
-    "name": "backend",
-    "version": "1.0.0",
-    "description": "Projeto de backend da semana omnistack 10 da rocketseat.",
-    "main": "./code/src/index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "npm start",
-        "start.dev": "nodemon"
-    },
-    "repository": {
-        "url": "https://github.com/yarnpkg/example-yarn-package",
-        "type": "git"
-    },
-    "author": "Mikhail Cavalcanti <mikhailcavalcanti@gmail.com",
-    "license": "MIT",
-    "dependencies": {
-        "axios": "^0.19.2",
-        "cors": "^2.8.5",
-        "express": "^4.16.3",
-        "mongoose": "^5.8.11"
-    },
-    "devDependencies": {
-        "nodemon": "1.18.2"
-    }
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Projeto de backend da semana omnistack 10 da rocketseat.",
+  "main": "./code/src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm start",
+    "start.dev": "nodemon"
+  },
+  "repository": {
+    "url": "https://github.com/yarnpkg/example-yarn-package",
+    "type": "git"
+  },
+  "author": "Mikhail Cavalcanti <mikhailcavalcanti@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.16.3",
+    "mongoose": "^5.8.11",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.2"
+  }
 }
