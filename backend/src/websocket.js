@@ -1,5 +1,8 @@
 const socketio = require("socket.io");
 
 exports.setupWebsocket = server => {
-  console.log("ae");
+  const io = socketio(server);
+  io.on("connect", (socket) => {
+    console.log(`conectou => ${socket.id}`);
+  });
 };

@@ -15,6 +15,7 @@ import {
 import { MaterialIcons } from "@expo/vector-icons";
 
 import api from "../services/api";
+import { connect } from "../services/socket";
 
 function Main({ navigation }) {
   const [developers, setDevelopers] = useState([]);
@@ -45,6 +46,10 @@ function Main({ navigation }) {
     loadInitialPosition();
   }, []);
 
+  function setupWebsocket() {
+    connect();
+  }
+
   async function loadDevelopers() {
     const { latitude, longitude } = currentRegion;
     const response = await api.get("search", {
@@ -54,8 +59,8 @@ function Main({ navigation }) {
         techs
       }
     });
-    console.log(response.data);
     setDevelopers(response.data);
+    setupWebsocket();
   }
 
   function handleRegionChanged(region) {
