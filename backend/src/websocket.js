@@ -18,10 +18,10 @@ exports.setupWebsocket = server => {
 };
 
 exports.findConnections = (coordinates, techs) => {
-  return connections.filter((connection) => {
+  return connections.filter(connection => {
     const rangeKilometers = 10;
     return calculateDistance(coordinates, connection.coordinates) < rangeKilometers
-      && connections.techs.some(item => techs.includes(item));
+      && connection.techs.some(item => techs.includes(item));
   });
 };
 
