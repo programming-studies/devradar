@@ -13,4 +13,8 @@ function disconnect() {
   }
 }
 
-export { connect, disconnect };
+function subscribeToNewDevelopers(subscribeFunction) {
+  socket.on('new-developer', subscribeFunction);
+}
+
+export { connect, disconnect, subscribeToNewDevelopers };
